@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @SpringBootApplication
 public class ConsumeRestServiceApplication {
 
@@ -29,8 +31,9 @@ public class ConsumeRestServiceApplication {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception{
 		return args -> {
 			DivisorsCount divisorsCount = restTemplate.getForObject(
-				"http://localhost:8080/NumberData?number=random", DivisorsCount.class);
-			log.info(String.valueOf(divisorsCount.divisorsCount()));
+				"http://localhost:8080/numberData", DivisorsCount.class);
+			ObjectMapper mapper = new ObjectMapper();
+			log.info(mapper.writeValueAsString(divisorsCount));
 		};
 	}
 }
