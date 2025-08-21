@@ -2,6 +2,7 @@ package com.guides.restservice;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,13 +23,17 @@ public class NumberDataController {
     }
     
     @GetMapping("/numberData")
-    public NumberData numberData(@RequestParam(defaultValue = "1") String number) {
+    public NumberData numberData(@RequestParam(defaultValue = "random") String number) {
         int n;
         try{
             n = Integer.parseInt(number);
         }
         catch (NumberFormatException e){
-            n = 1;
+            if (number.equals("random")) {
+                Random rand = new Random();
+                n = rand.nextInt(100);
+            }
+            else n = 1;
         }
         return new NumberData(id.incrementAndGet(), n, (countDivisors(n)==2), (n%2 == 0), countDivisors(n));
     } 
