@@ -1,4 +1,4 @@
 package com.guides.restservice;
 
-public record NumberData(long requestId, int number, Boolean isPrime, Boolean isEven, int NumberOfDivisors) {
+public record NumberData(long requestId, int number, Boolean isPrime, Boolean isEven, int numberOfDivisors) {
 }
